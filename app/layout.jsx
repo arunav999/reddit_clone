@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import Header from "@/components/Header/Header";
+import Sidebar from "@/components/Nav/Sidebar";
 
 export const metadata = {
   title: "Reddit_Clone",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header />
+        <Sidebar />
         {children}
       </body>
     </html>

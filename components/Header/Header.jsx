@@ -6,7 +6,6 @@ import {
   XCircleIcon,
   EllipsisHorizontalIcon,
   BellIcon,
-  BellAlertIcon,
 } from "@heroicons/react/24/outline";
 
 import redditLogo from "@/public/Reddit-Logo.png";
@@ -15,7 +14,7 @@ import defaultMaleImg from "@/public/defaultMaleImg.png";
 import classes from "./Header.module.css";
 
 export default function Header() {
-  let login = true;
+  let login = false;
 
   return (
     <>
@@ -28,16 +27,16 @@ export default function Header() {
         </Link>
 
         <div className={classes.search}>
-          <MagnifyingGlassIcon className={classes.icon} />
+          <MagnifyingGlassIcon className='h-8 w-8' />
           <input type="text" placeholder="Search Reddit" />
-          <XCircleIcon className={classes.icon} />
+          <XCircleIcon className='h-8 w-8' />
         </div>
 
         <div className={classes.user}>
           {!login ? (
             <>
               <button className={classes.login}>Log In</button>
-              <EllipsisHorizontalIcon className={classes.more} />{" "}
+              <EllipsisHorizontalIcon className={classes.more} />
             </>
           ) : (
             <>

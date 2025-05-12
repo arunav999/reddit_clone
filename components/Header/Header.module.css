@@ -46,11 +46,6 @@
   border: 2px solid #639cff;
 }
 
-.search .icon {
-  height: 2rem;
-  width: 2rem;
-}
-
 .search input {
   width: 90%;
   outline: none;
@@ -60,6 +55,7 @@
 .user {
   display: flex;
   align-items: center;
+  gap: 1.6rem;
 }
 
 .user .login {
@@ -134,7 +130,7 @@
   border-radius: 2.5rem;
 }
 
-.user .profile:hover{
+.user .profile:hover {
   background-color: #eceded;
 }
 
