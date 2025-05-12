@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 export const metadata = {
   title: "Reddit_Clone",
