@@ -1,5 +1,8 @@
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -27,15 +30,17 @@ export default function Header() {
         </Link>
 
         <div className={classes.search}>
-          <MagnifyingGlassIcon className='h-8 w-8' />
+          <MagnifyingGlassIcon className="h-8 w-8" />
           <input type="text" placeholder="Search Reddit" />
-          <XCircleIcon className='h-8 w-8' />
+          <XCircleIcon className="h-8 w-8" />
         </div>
 
         <div className={classes.user}>
           {!login ? (
             <>
-              <button className={classes.login}>Log In</button>
+              <button className={classes.login} onClick={() => signIn()}>
+                Log In
+              </button>
               <EllipsisHorizontalIcon className={classes.more} />
             </>
           ) : (

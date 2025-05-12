@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import RedditProvider from "next-auth/providers/reddit";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     RedditProvider({
       clientId: process.env.REDDIT_CLIENT_ID,
@@ -9,3 +9,5 @@ export default NextAuth({
     }),
   ],
 });
+
+export { handler as GET, handler as POST };
