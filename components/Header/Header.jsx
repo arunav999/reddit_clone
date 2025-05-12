@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import {
+  XCircleIcon,
+  EllipsisHorizontalIcon,
+} from "@heroicons/react/24/outline";
+
 import redditLogo from "@/public/Reddit-Logo.png";
 import classes from "./Header.module.css";
 
@@ -16,13 +22,14 @@ export default function Header() {
         </Link>
 
         <div className={classes.search}>
-          <span>Search Icon</span>
+          <MagnifyingGlassIcon className={classes.icon} />
           <input type="text" placeholder="Search Reddit" />
+          <XCircleIcon className={classes.icon} />
         </div>
 
         <div className={classes.user}>
           <button className={classes.login}>Log In</button>
-          <span className={classes.more}>...</span>
+          <EllipsisHorizontalIcon className={classes.more} />
           {/* dynamic */}
 
           {/* <Link href="">

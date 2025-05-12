@@ -1,40 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 .header {
-  margin: 0 2rem;
+  margin: 0.6rem 2rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* ----- HEADER-IMAGE ----- */
 .image-container {
   display: flex;
   align-items: center;
 }
 
 .image-container img {
-  height: 6.5rem;
-  width: 6.5rem;
+  height: 5rem;
+  width: 5rem;
 }
 
 .image-container span {
   font-family: 'Varela Round', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: 900;
   color: #ff4500;
 }
 
+/* ----- SEARCH ----- */
 .search {
   background-color: #eceded;
   padding: 0.8rem;
+  padding-left: 1.8rem;
   width: 35%;
   font-size: 1.6rem;
+  border: 2px solid #fff;
   border-radius: 2.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
+.search.active {
+  border: 2px solid #639cff;
+}
+
+.search .icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+.search input {
+  width: 90%;
+  outline: none;
+}
+
+/* ----- USER ----- */
 .user {
   display: flex;
+  align-items: center;
   gap: 1.6rem;
 }
 
@@ -48,16 +72,17 @@
   cursor: pointer;
 }
 
-.user .login:hover{
+.user .login:hover {
   background-color: #cc3700;
 }
 
 .user .more {
-  /* color: lightgrey; */
-  /* padding: 0.8rem 1.2rem; */
-  font-size: 2.6rem;
-  font-weight: 600;
-  align-self: center;
-  border: 1px solid black;
+  width: 4.6rem;
+  padding: 0.8rem;
+  cursor: pointer;
 }
 
+.user .more:hover {
+  background-color: #eceded;
+  border-radius: 50%;
+}
