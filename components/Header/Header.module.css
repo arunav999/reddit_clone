@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 .header {
-  margin: 0.6rem 2rem;
+  padding: 0.6rem 2rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #c6c9c9;
 }
 
 /* ----- HEADER-IMAGE ----- */
@@ -59,7 +60,6 @@
 .user {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
 }
 
 .user .login {
@@ -85,4 +85,60 @@
 .user .more:hover {
   background-color: #eceded;
   border-radius: 50%;
+}
+
+/* ----- USER-CREATE ----- */
+.user .create {
+  padding: 0.6rem 1.2rem;
+  border-radius: 2.5rem;
+
+}
+
+.user .create a {
+  font-size: 1.8rem;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.user .create:hover {
+  background-color: #eceded;
+}
+
+.user .create .create-icon {
+  height: 2.6rem;
+  width: 2.6rem;
+}
+
+/* ----- USER-NOTIFICATION ----- */
+.user .notification {
+  padding: 0.6rem 1.2rem;
+  border-radius: 25rem;
+}
+
+.user .notification:hover {
+  background-color: #eceded;
+}
+
+.user .notification a .bell {
+  height: 2.6rem;
+  width: 2.6rem;
+}
+
+/* ----- USER-PROFILE ----- */
+.user .profile {
+  /* padding: 0.6rem 1.2rem; */
+  padding: 1rem;
+  border-radius: 2.5rem;
+}
+
+.user .profile:hover{
+  background-color: #eceded;
+}
+
+.user .profile img {
+  height: 3.6rem;
+  width: 3.6rem;
 }

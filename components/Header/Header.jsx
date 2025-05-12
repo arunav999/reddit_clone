@@ -1,20 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import {
   XCircleIcon,
   EllipsisHorizontalIcon,
+  BellIcon,
+  BellAlertIcon,
 } from "@heroicons/react/24/outline";
 
 import redditLogo from "@/public/Reddit-Logo.png";
+import defaultFemaleImg from "@/public/defaultFemaleImg.png";
+import defaultMaleImg from "@/public/defaultMaleImg.png";
 import classes from "./Header.module.css";
 
 export default function Header() {
+  let login = true;
+
   return (
     <>
       <header className={classes.header}>
-        <Link href="">
+        <Link href="/">
           <div className={classes["image-container"]}>
             <Image src={redditLogo} alt="Reddit logo" className="image" />
             <span>reddit</span>
@@ -28,23 +34,37 @@ export default function Header() {
         </div>
 
         <div className={classes.user}>
-          <button className={classes.login}>Log In</button>
-          <EllipsisHorizontalIcon className={classes.more} />
-          {/* dynamic */}
+          {!login ? (
+            <>
+              <button className={classes.login}>Log In</button>
+              <EllipsisHorizontalIcon className={classes.more} />{" "}
+            </>
+          ) : (
+            <>
+              <div className={classes.create}>
+                <Link href="">
+                  <PlusIcon className={classes["create-icon"]} />
+                  <span>Create</span>
+                </Link>
+              </div>
 
-          {/* <Link href="">
-            <span>plus icon</span>
-            <span>Create</span>
-          </Link>
+              <div className={classes.notification}>
+                <Link href="">
+                  <BellIcon className={classes.bell} />
+                </Link>
+              </div>
 
-          <Link href="">
-            <span>notification icon</span>
-          </Link>
-
-          <Link href="">
-            <span>user</span>
-            <span>Online-green dot</span>
-          </Link> */}
+              <div className={classes.profile}>
+                <Link href="">
+                  <Image
+                    src={login ? defaultMaleImg : defaultFemaleImg}
+                    alt=""
+                  />
+                  {/* <span>Online-green dot</span> */}
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </header>
     </>
