@@ -1,0 +1,165 @@
+type Query {
+  getAllPosts: [Post]
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      SELECT * FROM post ORDER BY created_at DESC
+      """
+    )
+
+  getAllComments: [Comment]
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      SELECT * FROM comment ORDER BY created_at DESC
+      """
+    )
+
+  getAllSubreddits: [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      SELECT * FROM subreddit
+      """
+    )
+
+  getAllVotes: [Vote]
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      SELECT * FROM vote
+      """
+    )
+}
+
+type Mutation {
+  addPost(
+    title: String!
+    body: String!
+    image: String
+    username: String!
+    subreddit_id: ID!
+  ): Post
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      INSERT INTO post (title, body, image, username, subreddit_id)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+      """
+    )
+
+  addComment(post_id: ID!, text: String!, username: String!): Comment
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      INSERT INTO comment (post_id, text, username)
+      VALUES ($1, $2, $3)
+      RETURNING *
+      """
+    )
+
+  addSubreddit(topic: String!): Subreddit
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      INSERT INTO subreddit (topic)
+      VALUES ($1)
+      RETURNING *
+      """
+    )
+
+  addVote(post_id: ID!, upvote: Boolean!, username: String!): Vote
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      INSERT INTO vote (post_id, upvote, username)
+      VALUES ($1, $2, $3)
+      RETURNING *
+      """
+    )
+
+  deletePost(id: ID!): Post
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      DELETE FROM post
+      WHERE id = $1
+      RETURNING *
+      """
+    )
+
+  deleteComment(id: ID!): Comment
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      DELETE FROM comment
+      WHERE id = $1
+      RETURNING *
+      """
+    )
+
+  deleteSubreddit(id: ID!): Subreddit
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      DELETE FROM subreddit
+      WHERE id = $1
+      RETURNING *
+      """
+    )
+
+  deleteVote(id: ID!): Vote
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      DELETE FROM vote
+      WHERE id = $1
+      RETURNING *
+      """
+    )
+}
+
+type Comment {
+  id: ID!
+  created_at: DateTime
+  post_id: ID
+  text: String
+  username: String
+}
+
+type Post {
+  id: ID!
+  created_at: DateTime
+  title: String
+  body: String
+  image: String
+  username: String
+  subreddit_id: ID
+}
+
+type Subreddit {
+  id: ID!
+  created_at: DateTime
+  topic: String
+}
+
+type Vote {
+  id: ID!
+  created_at: DateTime
+  post_id: ID
+  upvote: Boolean
+  username: String
+}

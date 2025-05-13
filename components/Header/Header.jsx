@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -17,11 +17,12 @@ import defaultMaleImg from "@/public/defaultMaleImg.png";
 import classes from "./Header.module.css";
 
 export default function Header() {
-  let login = false;
+  const { data: session } = useSession();
 
   return (
     <>
       <header className={classes.header}>
+        {/* reddit home */}
         <Link href="/">
           <div className={classes["image-container"]}>
             <Image src={redditLogo} alt="Reddit logo" className="image" />
@@ -29,14 +30,17 @@ export default function Header() {
           </div>
         </Link>
 
+        {/* reddit search bar */}
         <div className={classes.search}>
           <MagnifyingGlassIcon className="h-8 w-8" />
           <input type="text" placeholder="Search Reddit" />
           <XCircleIcon className="h-8 w-8" />
         </div>
 
+        {/* reddit user login */}
+
         <div className={classes.user}>
-          {!login ? (
+          {!session ? (
             <>
               <button className={classes.login} onClick={() => signIn()}>
                 Log In
@@ -45,6 +49,7 @@ export default function Header() {
             </>
           ) : (
             <>
+              {/* reddit user logout */}
               <div className={classes.create}>
                 <Link href="">
                   <PlusIcon className={classes["create-icon"]} />
@@ -59,13 +64,10 @@ export default function Header() {
               </div>
 
               <div className={classes.profile}>
-                <Link href="">
-                  <Image
-                    src={login ? defaultMaleImg : defaultFemaleImg}
-                    alt=""
-                  />
+                <button>
+                  <Image src={defaultFemaleImg} alt="" />
                   {/* <span>Online-green dot</span> */}
-                </Link>
+                </button>
               </div>
             </>
           )}
