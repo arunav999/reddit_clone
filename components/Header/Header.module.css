@@ -42,8 +42,9 @@
   gap: 0.8rem;
 }
 
-.search.active {
+.search.is-focus {
   border: 2px solid #639cff;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);
 }
 
 .search input {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
@@ -19,6 +20,16 @@ import classes from "./Header.module.css";
 export default function Header() {
   const { data: session } = useSession();
 
+  const [isFocused, setIsFocused] = useState(false);
+  const [value, setValue] = useState("");
+  const inputRef = useRef(null);
+
+  function handleClose() {
+    setValue("");
+    setIsFocused(false);
+    inputRef.current.blur();
+  }
+
   return (
     <>
       <header className={classes.header}>
@@ -31,10 +42,31 @@ export default function Header() {
         </Link>
 
         {/* reddit search bar */}
-        <div className={classes.search}>
+        <div
+          className={`${classes.search} ${
+            isFocused ? classes["is-focus"] : null
+          }`}
+        >
           <MagnifyingGlassIcon className="h-8 w-8" />
-          <input type="text" placeholder="Search Reddit" />
-          <XCircleIcon className="h-8 w-8" />
+          <input
+            type="text"
+            value={value}
+            ref={inputRef}
+            placeholder="Search Reddit"
+            onChange={(e) => setValue(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => {
+              if (document.activeElement !== inputRef.current) {
+                setIsFocused(false);
+              }
+            }}
+          />
+          {(isFocused || value) && (
+            <XCircleIcon
+              className="h-8 w-8 cursor-pointer"
+              onClick={handleClose}
+            />
+          )}
         </div>
 
         {/* reddit user login */}
@@ -51,7 +83,7 @@ export default function Header() {
             <>
               {/* reddit user logout */}
               <div className={classes.create}>
-                <Link href="">
+                <Link href="/create">
                   <PlusIcon className={classes["create-icon"]} />
                   <span>Create</span>
                 </Link>

@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Header />
       <Sidebar />
-      <PostBox />
+      {/* <PostBox /> */}
     </>
   );
 }

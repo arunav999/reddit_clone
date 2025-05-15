@@ -1,0 +1,78 @@
+.nav {
+  width: 28rem;
+  padding: 2rem;
+  padding-right: 4rem;
+  font-size: 1.6rem;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #c6c9c9;
+}
+
+.nav .nav-bar {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #c6c9c9;
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+.nav ul>li {
+  border-radius: 1rem;
+}
+
+.nav .link {
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav .link:hover {
+  background-color: #f6f8f9;
+  border-radius: 1rem;
+}
+
+/* Nav 3 bars */
+.nav-bar-icon {
+  border: 1px solid #838383;
+  padding: 0.6rem;
+  border-radius: 50%;
+  position: absolute;
+  right: -1.75rem;
+  top: 2.4rem;
+  background-color: #fff;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.active {
+  background-color: #e5ebee;
+}
+
+/* communities */
+
+.nav .communities {
+  width: 25rem;
+  padding: 2rem;
+}
+
+.nav .communities summary {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  list-style: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav .communities summary:hover {
+  background-color: #f6f8f9;
+}
+
