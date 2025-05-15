@@ -34,10 +34,11 @@
 
 .link a.active {
   border-bottom: 2px solid blue;
+  border-radius: 1rem;
 }
 
 .content .link a:hover {
-  background-color: #f6f8f9;
+  background-color: #eaeeee;
 }
 
 /* ----- SECTION ----- */
@@ -133,12 +134,15 @@
   gap: 1rem;
 }
 
-.upload-button button{
+.upload-button button {
   padding: 1rem;
   background-color: #dae8ef;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.upload-button button:hover{
+.upload-button button:hover {
   background-color: #c4d1d7;
 }
+
+/* -----  UPLOAD ----- */

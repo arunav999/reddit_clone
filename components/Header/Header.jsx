@@ -83,7 +83,7 @@ export default function Header() {
             <>
               {/* reddit user logout */}
               <div className={classes.create}>
-                <Link href="/create">
+                <Link href="/create?type=TEXT">
                   <PlusIcon className={classes["create-icon"]} />
                   <span>Create</span>
                 </Link>
