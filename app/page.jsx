@@ -5,8 +5,8 @@ import PostBox from "@/components/Post/PostBox";
 export default function Home() {
   return (
     <>
-      <Header />
-      <Sidebar />
+      {/* <Header /> */}
+      {/* <Sidebar /> */}
       {/* <PostBox /> */}
     </>
   );
