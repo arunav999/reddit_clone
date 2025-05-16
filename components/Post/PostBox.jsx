@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
 
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 
@@ -20,6 +21,14 @@ export default function PostBox() {
   const [error, setError] = useState();
 
   const fileInputRef = useRef(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
 
   function handleFileNameChange(event) {
     const file = event.target.files[0];
@@ -66,13 +75,27 @@ export default function PostBox() {
             </div>
 
             <section className={post.section}>
-              <form action="">
+              <form
+                onSubmit={handleSubmit((data) => {
+                  console.log(data);
+                })}
+              >
                 <div className={post["input-size"]}>
                   <div className={post.input}>
-                    <input type="text" placeholder="Title*" />
+                    <input
+                      type="text"
+                      placeholder="Title*"
+                      {...register("title", {
+                        required: "This field is required",
+                        minLength: {
+                          value: 3,
+                          message: "The minimum length is 3",
+                        },
+                      })}
+                    />
                   </div>
                   <div className={post.length}>
-                    <p className={post.error}>Error message &#x2718;</p>
+                    <p className={post.error}>{errors.title?.message !== undefined && errors.title?.message}</p>
                     <span>0/300</span>
                   </div>
                 </div>
@@ -80,7 +103,7 @@ export default function PostBox() {
                 {search === "TEXT" && (
                   <div className={post.body}>
                     <textarea
-                      name=""
+                      {...register("body")}
                       id=""
                       placeholder="Body text (optional)"
                     ></textarea>
@@ -91,6 +114,7 @@ export default function PostBox() {
                   <div className={post.upload}>
                     <input
                       type="file"
+                      {...register("image")}
                       ref={fileInputRef}
                       accept="image/*,video*"
                       onChange={handleFileNameChange}
@@ -107,7 +131,11 @@ export default function PostBox() {
                 {search === "LINK" && (
                   <div className={post["input-size"]}>
                     <div className={post.input}>
-                      <input type="text" placeholder="Link*" />
+                      <input
+                        type="text"
+                        placeholder="Link*"
+                        {...register("link")}
+                      />
                     </div>
                     <div className={post.length}>
                       <p className={post.error}>Error message &#x2718;</p>
@@ -116,7 +144,7 @@ export default function PostBox() {
                 )}
 
                 <div className={post.button}>
-                  <button>Post</button>
+                  <button type="submit">Post</button>
                 </div>
               </form>
             </section>
