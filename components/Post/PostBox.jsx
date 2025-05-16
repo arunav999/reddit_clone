@@ -106,9 +106,6 @@ export default function PostBox() {
         }),
       });
 
-      // const createPostData = await createPostRes.json();
-      // console.log("New post added:", createPostData.data.addPost);
-
       setValue("subreddit", "");
       setValue("title", "");
       setValue("body", "");
