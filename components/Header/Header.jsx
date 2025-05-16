@@ -97,7 +97,7 @@ export default function Header() {
 
               <div className={classes.profile}>
                 <button>
-                  <Image src={defaultFemaleImg} alt="" />
+                  <Image src={defaultMaleImg} alt="" />
                   {/* <span>Online-green dot</span> */}
                 </button>
               </div>

@@ -17,6 +17,7 @@ export default function PostBox() {
   const search = searchParams.get("type");
 
   const [filename, setFileName] = useState("Upload media");
+  const [error, setError] = useState();
 
   const fileInputRef = useRef(null);
 
@@ -71,7 +72,7 @@ export default function PostBox() {
                     <input type="text" placeholder="Title*" />
                   </div>
                   <div className={post.length}>
-                    <p>Error message</p>
+                    <p className={post.error}>Error message &#x2718;</p>
                     <span>0/300</span>
                   </div>
                 </div>
@@ -107,6 +108,9 @@ export default function PostBox() {
                   <div className={post["input-size"]}>
                     <div className={post.input}>
                       <input type="text" placeholder="Link*" />
+                    </div>
+                    <div className={post.length}>
+                      <p className={post.error}>Error message &#x2718;</p>
                     </div>
                   </div>
                 )}
