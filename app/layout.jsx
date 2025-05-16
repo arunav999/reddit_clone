@@ -1,3 +1,5 @@
+import { Toaster } from "react-hot-toast";
+
 import "./globals.css";
 
 import Header from "@/components/Header/Header";
@@ -14,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Providers>
+          <Toaster />
           <Header />
           <div className="flex min-h-screen">
             <Sidebar />

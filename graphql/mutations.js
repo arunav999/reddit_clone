@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const ADD_POST = gql`
+export const ADD_POST = `
   mutation MyMutation(
     $title: String!
     $body: String!
@@ -26,7 +24,7 @@ export const ADD_POST = gql`
   }
 `;
 
-export const ADD_SUBREDDIT = gql`
+export const ADD_SUBREDDIT = `
   mutation MyMutation($topic: String!) {
     addSubreddit(topic: $topic) {
       id

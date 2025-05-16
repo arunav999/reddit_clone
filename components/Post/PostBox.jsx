@@ -1,11 +1,10 @@
 "use client";
 
+import toast from "react-hot-toast";
+
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-
-import { useMutation } from "@apollo/client";
-import client from "@/apollo-client";
 
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -19,8 +18,6 @@ import { GET_SUBREDDIT_BY_TOPIC } from "@/graphql/queries";
 
 export default function PostBox() {
   const { data: session } = useSession();
-  const [addPost] = useMutation(ADD_POST);
-  const [addSubreddit] = useMutation(ADD_SUBREDDIT);
 
   const searchParams = useSearchParams();
   const search = searchParams.get("type");
@@ -51,73 +48,169 @@ export default function PostBox() {
     return files;
   }
 
+  // const onSubmit = handleSubmit(async (formData) => {
+  //   const notification = toast.loading("Creating new post...");
+
+  //   try {
+  //     const subredditRes = await fetch("/api/stepzen", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         query: GET_SUBREDDIT_BY_TOPIC,
+  //         variables: { topic: formData.subreddit },
+  //       }),
+  //     });
+
+  //     const subredditData = await subredditRes.json();
+  //     const getSubredditListByTopic =
+  //       subredditData.data.getSubredditListByTopic;
+
+  //     let subreddit_id;
+
+  //     if (getSubredditListByTopic.length === 0) {
+  //       console.log("Subreddit is new -> Creating new Subreddit");
+
+  //       const createSubredditRes = await fetch("/api/stepzen", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           query: ADD_SUBREDDIT,
+  //           variables: { topic: formData.subreddit },
+  //         }),
+  //       });
+
+  //       const createSubredditData = await createSubredditRes.json();
+  //       subreddit_id = createSubredditData.data.addSubreddit.id;
+  //     } else {
+  //       console.log("Using existing subreddit!!!");
+  //       subreddit_id = getSubredditListByTopic[0].id;
+  //     }
+
+  //     const image = formData.image || "";
+
+  //     const createPostRes = await fetch("/api/stepzen", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         query: ADD_POST,
+  //         variables: {
+  //           body: formData.body,
+  //           image: image,
+  //           subreddit_id: subreddit_id,
+  //           title: formData.title,
+  //           username: session?.user?.name,
+  //         },
+  //       }),
+  //     });
+
+  //     const createPostData = await createPostRes.json();
+  //     console.log("New post added", createPostData.data.addPost());
+
+  //     setValue("subreddit", "");
+  //     setValue("title", "");
+  //     setValue("body", "");
+  //     setValue("link", "");
+  //     setValue("image", "");
+
+  //     toast.success("New post created", {
+  //       id: notification,
+  //     });
+  //   } catch (error) {
+  //     toast.error("Whoops something went wrong!", {
+  //       id: notification,
+  //     });
+  //   }
+  // });
+
   const onSubmit = handleSubmit(async (formData) => {
+    const notification = toast.loading("Creating new post...");
+
     try {
-      const {
-        data: { getSubredditListByTopic },
-      } = await client.query({
-        query: GET_SUBREDDIT_BY_TOPIC,
-        variables: {
-          topic: formData.subreddit,
+      // 1. Get Subreddit
+      const subredditRes = await fetch("/api/stepzen", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          query: GET_SUBREDDIT_BY_TOPIC,
+          variables: { topic: formData.subreddit },
+        }),
       });
 
-      const isSubredditExists = getSubredditListByTopic.length > 0;
+      const subredditData = await subredditRes.json();
+      const getSubredditListByTopic =
+        subredditData.data.getSubredditListByTopic;
 
-      if (!isSubredditExists) {
+      let subreddit_id;
+
+      // 2. Create new subreddit if it doesn't exist
+      if (getSubredditListByTopic.length === 0) {
         console.log("Subreddit is new -> Creating new Subreddit");
 
-        const {
-          data: { addSubreddit: newSubreddit },
-        } = await addSubreddit({
-          variables: {
-            topic: formData.subreddit,
+        const createSubredditRes = await fetch("/api/stepzen", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            query: ADD_SUBREDDIT,
+            variables: { topic: formData.subreddit },
+          }),
         });
 
-        console.log("Creating post", formData);
-        const image = formData.image || "";
-
-        const {
-          data: { addPost: newPost },
-        } = await addPost({
-          variables: {
-            body: formData.body,
-            image: image,
-            subreddit_id: newSubreddit.id,
-            title: formData.title,
-            username: session?.user?.name,
-          },
-        });
-
-        console.log("New post added", newPost);
+        const createSubredditData = await createSubredditRes.json();
+        subreddit_id = createSubredditData.data.addSubreddit.id;
       } else {
         console.log("Using existing subreddit!!!");
-        console.log(getSubredditListByTopic);
+        subreddit_id = getSubredditListByTopic[0].id;
+      }
 
-        const image = formData.image || "";
+      // 3. Create the post
+      const image = formData.image || formData.link;
 
-        const {
-          data: { addPost: newPost },
-        } = await addPost({
+      const createPostRes = await fetch("/api/stepzen", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: ADD_POST,
           variables: {
             body: formData.body,
             image: image,
-            subreddit_id: getSubredditListByTopic[0].id,
+            subreddit_id: subreddit_id,
             title: formData.title,
             username: session?.user?.name,
           },
-        });
+        }),
+      });
 
-        console.log("New post added:", newPost);
-      }
+      const createPostData = await createPostRes.json();
+      console.log("New post added:", createPostData.data.addPost);
 
+      // 4. Reset form values
       setValue("subreddit", "");
       setValue("title", "");
       setValue("body", "");
       setValue("link", "");
       setValue("image", "");
-    } catch (error) {}
+
+      toast.success("New post created", {
+        id: notification,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Whoops something went wrong!", {
+        id: notification,
+      });
+    }
   });
 
   return (

@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_SUBREDDIT_BY_TOPIC = gql`
+export const GET_SUBREDDIT_BY_TOPIC = `
   query MyQuery($topic: String!) {
     getSubredditListByTopic(topic: $topic) {
       id
