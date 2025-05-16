@@ -26,9 +26,8 @@ export default function PostBox() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
-
-  console.log(errors);
 
   function handleFileNameChange(event) {
     const file = event.target.files[0];
@@ -75,18 +74,38 @@ export default function PostBox() {
             </div>
 
             <section className={post.section}>
-              <form
-                onSubmit={handleSubmit((data) => {
-                  console.log(data);
-                })}
-              >
+              <form onSubmit={handleSubmit}>
+                {/* SUB-REDDIT */}
+                <div className={post["input-size"]}>
+                  <div className={post.input}>
+                    <input
+                      type="text"
+                      placeholder="Subreddit*"
+                      {...register("subreddit", {
+                        required: "Subreddit is required",
+                        minLength: {
+                          value: 3,
+                          message: "The minimum length is 3",
+                        },
+                      })}
+                    />
+                  </div>
+                  <div className={post.length}>
+                    <p className={post.error}>
+                      {errors.subreddit?.message !== undefined &&
+                        errors.subreddit?.message}
+                    </p>
+                  </div>
+                </div>
+
+                {/* INPUT-TITLE */}
                 <div className={post["input-size"]}>
                   <div className={post.input}>
                     <input
                       type="text"
                       placeholder="Title*"
                       {...register("title", {
-                        required: "This field is required",
+                        required: "Title is required",
                         minLength: {
                           value: 3,
                           message: "The minimum length is 3",
@@ -103,6 +122,7 @@ export default function PostBox() {
                   </div>
                 </div>
 
+                {/* BODY */}
                 {search === "TEXT" && (
                   <div className={post.body}>
                     <textarea
@@ -113,6 +133,7 @@ export default function PostBox() {
                   </div>
                 )}
 
+                {/* IMAGE / VIDEO UPLOAD */}
                 {search === "IMAGE" && (
                   <div className={post.upload}>
                     <input
@@ -132,6 +153,7 @@ export default function PostBox() {
                   </div>
                 )}
 
+                {/* IMAGE / VIDEO LINK */}
                 {search === "LINK" && (
                   <div className={post["input-size"]}>
                     <div className={post.input}>
@@ -152,8 +174,18 @@ export default function PostBox() {
                   </div>
                 )}
 
-                <div className={post.button}>
-                  <button type="submit">Post</button>
+                {/* SUBMIT POST BUTTON */}
+                <div
+                  className={`${post.button} ${
+                    watch("title") && watch("subreddit") ? post.active : null
+                  }`}
+                >
+                  <button
+                    type="submit"
+                    disabled={!watch("title") && !watch("subreddit")}
+                  >
+                    Post
+                  </button>
                 </div>
               </form>
             </section>

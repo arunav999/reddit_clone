@@ -103,12 +103,13 @@
   font-weight: 600;
   background-color: #f6f8f9;
   border-radius: 1.8rem;
+  cursor: no-drop;
 }
 
-.button button.active {
+.button.active button {
   color: #fff;
   background-color: #251ac1;
-
+  cursor: pointer;
 }
 
 /* -----  UPLOAD ----- */
