@@ -103,7 +103,6 @@
   font-weight: 600;
   background-color: #f6f8f9;
   border-radius: 1.8rem;
-  cursor: no-drop;
 }
 
 .button.active button {
@@ -139,7 +138,8 @@
   padding: 1rem;
   background-color: #dae8ef;
   border-radius: 50%;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: no-drop;
 }
 
 .upload-button button:hover {

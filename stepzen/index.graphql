@@ -1,4 +1,35 @@
 type Query {
+  getCommentByPost_idAndUsername(post_id: ID!, username: String!): [Comment]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "comment" where "post_id" = $1 and "username" = $2
+      """
+      configuration: "postgresql"
+    )
+
+  getPostList: [Post]
+    @dbquery(type: "postgresql", table: "post", configuration: "postgresql")
+
+  getSubredditList: [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      table: "subreddit"
+      configuration: "postgresql"
+    )
+
+  getSubredditListByTopic(topic: String!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from subreddit where "topic" = $1
+      """
+      configuration: "postgresql"
+    )
+
+  getVoteList: [Vote]
+    @dbquery(type: "postgresql", table: "vote", configuration: "postgresql")
+
   getAllPosts: [Post]
     @dbquery(
       type: "postgresql"
