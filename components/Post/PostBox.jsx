@@ -95,7 +95,10 @@ export default function PostBox() {
                     />
                   </div>
                   <div className={post.length}>
-                    <p className={post.error}>{errors.title?.message !== undefined && errors.title?.message}</p>
+                    <p className={post.error}>
+                      {errors.title?.message !== undefined &&
+                        errors.title?.message}
+                    </p>
                     <span>0/300</span>
                   </div>
                 </div>
@@ -114,6 +117,7 @@ export default function PostBox() {
                   <div className={post.upload}>
                     <input
                       type="file"
+                      disabled
                       {...register("image")}
                       ref={fileInputRef}
                       accept="image/*,video*"
@@ -134,11 +138,16 @@ export default function PostBox() {
                       <input
                         type="text"
                         placeholder="Link*"
-                        {...register("link")}
+                        {...register("link", {
+                          required: "The image/video link is required!",
+                        })}
                       />
                     </div>
                     <div className={post.length}>
-                      <p className={post.error}>Error message &#x2718;</p>
+                      <p className={post.error}>
+                        {errors.link?.message !== undefined &&
+                          errors.link?.message}
+                      </p>
                     </div>
                   </div>
                 )}

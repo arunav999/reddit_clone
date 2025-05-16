@@ -72,7 +72,7 @@ export default function Header() {
         {/* reddit user login */}
 
         <div className={classes.user}>
-          {session ? (
+          {!session ? (
             <>
               <button className={classes.login} onClick={() => signIn()}>
                 Log In
