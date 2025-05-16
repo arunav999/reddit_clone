@@ -48,91 +48,10 @@ export default function PostBox() {
     return files;
   }
 
-  // const onSubmit = handleSubmit(async (formData) => {
-  //   const notification = toast.loading("Creating new post...");
-
-  //   try {
-  //     const subredditRes = await fetch("/api/stepzen", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         query: GET_SUBREDDIT_BY_TOPIC,
-  //         variables: { topic: formData.subreddit },
-  //       }),
-  //     });
-
-  //     const subredditData = await subredditRes.json();
-  //     const getSubredditListByTopic =
-  //       subredditData.data.getSubredditListByTopic;
-
-  //     let subreddit_id;
-
-  //     if (getSubredditListByTopic.length === 0) {
-  //       console.log("Subreddit is new -> Creating new Subreddit");
-
-  //       const createSubredditRes = await fetch("/api/stepzen", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           query: ADD_SUBREDDIT,
-  //           variables: { topic: formData.subreddit },
-  //         }),
-  //       });
-
-  //       const createSubredditData = await createSubredditRes.json();
-  //       subreddit_id = createSubredditData.data.addSubreddit.id;
-  //     } else {
-  //       console.log("Using existing subreddit!!!");
-  //       subreddit_id = getSubredditListByTopic[0].id;
-  //     }
-
-  //     const image = formData.image || "";
-
-  //     const createPostRes = await fetch("/api/stepzen", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         query: ADD_POST,
-  //         variables: {
-  //           body: formData.body,
-  //           image: image,
-  //           subreddit_id: subreddit_id,
-  //           title: formData.title,
-  //           username: session?.user?.name,
-  //         },
-  //       }),
-  //     });
-
-  //     const createPostData = await createPostRes.json();
-  //     console.log("New post added", createPostData.data.addPost());
-
-  //     setValue("subreddit", "");
-  //     setValue("title", "");
-  //     setValue("body", "");
-  //     setValue("link", "");
-  //     setValue("image", "");
-
-  //     toast.success("New post created", {
-  //       id: notification,
-  //     });
-  //   } catch (error) {
-  //     toast.error("Whoops something went wrong!", {
-  //       id: notification,
-  //     });
-  //   }
-  // });
-
   const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Creating new post...");
 
     try {
-      // 1. Get Subreddit
       const subredditRes = await fetch("/api/stepzen", {
         method: "POST",
         headers: {
@@ -150,10 +69,7 @@ export default function PostBox() {
 
       let subreddit_id;
 
-      // 2. Create new subreddit if it doesn't exist
       if (getSubredditListByTopic.length === 0) {
-        console.log("Subreddit is new -> Creating new Subreddit");
-
         const createSubredditRes = await fetch("/api/stepzen", {
           method: "POST",
           headers: {
@@ -168,11 +84,9 @@ export default function PostBox() {
         const createSubredditData = await createSubredditRes.json();
         subreddit_id = createSubredditData.data.addSubreddit.id;
       } else {
-        console.log("Using existing subreddit!!!");
         subreddit_id = getSubredditListByTopic[0].id;
       }
 
-      // 3. Create the post
       const image = formData.image || formData.link;
 
       const createPostRes = await fetch("/api/stepzen", {
@@ -192,10 +106,9 @@ export default function PostBox() {
         }),
       });
 
-      const createPostData = await createPostRes.json();
-      console.log("New post added:", createPostData.data.addPost);
+      // const createPostData = await createPostRes.json();
+      // console.log("New post added:", createPostData.data.addPost);
 
-      // 4. Reset form values
       setValue("subreddit", "");
       setValue("title", "");
       setValue("body", "");
