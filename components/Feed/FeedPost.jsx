@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import feed from "./post.module.css";
+import feed from "./FeedPost.module.css";
 
 import {
   EllipsisHorizontalIcon,
@@ -13,7 +13,7 @@ import {
 
 import defaultFemaleImg from "@/public/defaultFemaleImg.png";
 
-export default function Post() {
+export default function FeedPost() {
   return (
     <>
       <article className={feed.article}>

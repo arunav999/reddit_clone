@@ -3,7 +3,7 @@ import Sidebar from "@/components/Nav/Sidebar";
 import PostBox from "@/components/Post/PostBox";
 
 import RedditFeed from "@/components/Feed/RedditFeed";
-import feed from "@/components/Feed/Post.module.css";
+import feed from "@/components/Feed/FeedPost.module.css";
 
 export default function Home() {
   return (
