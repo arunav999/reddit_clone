@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Providers>
-          <Toaster />
+          <Toaster position="top-center" />
           <Header />
           <div className="flex min-h-screen">
             <Sidebar />

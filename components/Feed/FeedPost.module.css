@@ -35,16 +35,12 @@
   gap: 1rem;
 }
 
-.uid,
-.dot {
+.uid {
   font-weight: 600;
   color: #363535;
 }
 
-.dot {
-  display: flex;
-  justify-content: center;
-}
+
 
 .time-ago {
   font-weight: 600;
@@ -70,6 +66,12 @@
   /* max-height: fit-content;
   max-width: fit-content; */
   object-fit: cover;
+}
+
+/* ----- CTA ----- */
+.body {
+  font-size: 1.4rem;
+  color: #6f6e6e;
 }
 
 /* ----- CTA ----- */

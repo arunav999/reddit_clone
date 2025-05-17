@@ -1,5 +1,6 @@
+import TimeAgo from "react-timeago";
+
 import Link from "next/link";
-import Image from "next/image";
 
 import feed from "./FeedPost.module.css";
 
@@ -11,20 +12,21 @@ import {
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 
-import defaultFemaleImg from "@/public/defaultFemaleImg.png";
-
-export default function FeedPost() {
+export default function FeedPost({ post }) {
   return (
     <>
       <article className={feed.article}>
         <div className={feed.container}>
           <div className={feed["post-details"]}>
             <div className={feed.details}>
-              <span className={feed.uid}>UID</span>
+              <span className={feed.uid}>
+                r/{post.subreddit[0]?.topic} &#8226; Posted by u/{post.username}{" "}
+                &#8226;
+              </span>
 
-              <span className={feed.dot}>.</span>
-
-              <span className={feed["time-ago"]}>time ago</span>
+              <span className={feed["time-ago"]}>
+                <TimeAgo date={post.created_at} />
+              </span>
             </div>
 
             <div className={feed.more}>
@@ -36,13 +38,23 @@ export default function FeedPost() {
 
           <div className={feed["title-head"]}>
             <Link href="" className={feed["title-link"]}>
-              <p className={feed.title}>Title of the post</p>
+              <p className={feed.title}>{post.title}</p>
             </Link>
           </div>
 
-          <div className={feed.image}>
-            <Image src={defaultFemaleImg} alt="" />
-          </div>
+          {post.image !== null && post.image !== "" ? (
+            <div className={feed.image}>
+              <img src={post.image} alt={post.title} />
+            </div>
+          ) : (
+            <div className={feed.body}>
+              <p>{post.body}</p>
+            </div>
+          )}
+
+          {/* <div className={feed.body}>
+            <p>{post.body}</p>
+          </div> */}
 
           <div className={feed.cta}>
             <div className={feed["vote-btns"]}>
