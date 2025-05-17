@@ -26,12 +26,14 @@ export default function RedditFeed() {
     fetchPosts();
   }, []);
 
+  console.log(posts);
+
   return (
     <>
       {/* {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))} */}
-      <Post/>
+      <Post />
     </>
   );
 }
