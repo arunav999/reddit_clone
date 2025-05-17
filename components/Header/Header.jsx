@@ -13,7 +13,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 import redditLogo from "@/public/Reddit-Logo.png";
-import defaultFemaleImg from "@/public/defaultFemaleImg.png";
 import defaultMaleImg from "@/public/defaultMaleImg.png";
 import classes from "./Header.module.css";
 

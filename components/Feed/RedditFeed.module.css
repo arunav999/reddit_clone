@@ -1,5 +1,116 @@
-.feed{
-  
+.feed {
+  width: 80rem;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: 1.2rem;
 }
 
-.article{}
+.article:hover {
+  background-color: #f9f9f9;
+  border-radius: 2.5rem;
+}
+
+.container {
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ----- POST-DETAILS ----- */
+.post-details {
+  padding: 0.8rem 1rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.details {
+  display: flex;
+  gap: 1rem;
+}
+
+.uid,
+.dot {
+  font-weight: 600;
+  color: #363535;
+}
+
+.dot {
+  display: flex;
+  justify-content: center;
+}
+
+.time-ago {
+  font-weight: 600;
+  color: #6f6e6e;
+}
+
+/* ----- TITLE ----- */
+.title-head {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.image {
+  border: 2px solid #d6c4c4;
+  border-radius: 2.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image img {
+  /* max-height: fit-content;
+  max-width: fit-content; */
+  object-fit: cover;
+}
+
+/* ----- CTA ----- */
+.cta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.vote-btns,
+.comments,
+.share {
+  padding: 1rem;
+  background-color: #e1ebeb;
+  border-radius: 2.5rem;
+  font-size: 1.36rem;
+  font-weight: 600;
+}
+
+.vote-btns,
+.comments a,
+.share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ----- VOTE ----- */
+
+.upvote,
+.downvote {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.upvote:hover {
+  color: #ff4500;
+}
+
+.downvote:hover {
+  color: blue;
+}
+
+/* ----- COMMENTS ----- */
+
+/* ----- SHARE ----- */
