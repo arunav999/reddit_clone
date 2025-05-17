@@ -8,6 +8,15 @@ type Query {
       configuration: "postgresql"
     )
 
+  getCommentByPostId(post_id: ID!): [Comment]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "comment" where "post_id" = $1
+      """
+      configuration: "postgresql"
+    )
+
   getPostList: [Post]
     @dbquery(type: "postgresql", table: "post", configuration: "postgresql")
 
@@ -15,6 +24,15 @@ type Query {
     @dbquery(
       type: "postgresql"
       table: "subreddit"
+      configuration: "postgresql"
+    )
+
+  getSubredditListById(id: ID!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "subreddit" where "id" = $1
+      """
       configuration: "postgresql"
     )
 
@@ -29,6 +47,16 @@ type Query {
 
   getVoteList: [Vote]
     @dbquery(type: "postgresql", table: "vote", configuration: "postgresql")
+
+  getVotesByPostId(post_id: ID!): [Vote]
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      select * from "vote" where "post_id" = $1
+      order by "created_at" desc
+      """
+    )
 
   getAllPosts: [Post]
     @dbquery(
@@ -179,6 +207,21 @@ type Post {
   image: String
   username: String
   subreddit_id: ID
+  comments: [Comment]
+    @materializer(
+      query: "getCommentByPostId"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
+  votes: [Vote]
+    @materializer(
+      query: "getVotesByPostId"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
+  subreddit: [Subreddit]
+    @materializer(
+      query: "getSubredditListById"
+      arguments: [{ name: "id", field: "subreddit_id" }]
+    )
 }
 
 type Subreddit {
