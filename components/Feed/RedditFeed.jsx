@@ -1,47 +1,61 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { GET_ALL_POSTS } from "@/graphql/queries";
+import toast from "react-hot-toast";
 import FeedPost from "./FeedPost";
+import { GET_ALL_POSTS, GET_POSTS_BY_TOPIC } from "@/graphql/queries";
 
-export default function RedditFeed() {
+export default function RedditFeed({ topic }) {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const loadingToast = toast.loading("Loading posts...");
+      setLoading(true);
+      const toastId = toast.loading("Loading posts...");
 
       try {
+        const query = topic ? GET_POSTS_BY_TOPIC : GET_ALL_POSTS;
+        const variables = topic ? { topic } : {};
+
         const res = await fetch("/api/stepzen", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query: GET_ALL_POSTS }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query, variables }),
+          cache: "no-store",
         });
 
         const json = await res.json();
-        setPosts(json.data?.getPostList || []);
 
-        toast.success("Posts loaded successfully!", { id: loadingToast });
+        const postsData = topic
+          ? json.data?.getPostListByTopic || []
+          : json.data?.getPostList || [];
+
+        setPosts(postsData);
+        toast.success("Posts loaded", { id: toastId });
       } catch (error) {
-        toast.error("Failed to load posts", { id: loadingToast });
+        toast.error("Failed to load posts", { id: toastId });
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [topic]);
 
-  // console.log(posts);
+  if (loading) {
+    return <p>Loading posts...</p>;
+  }
+
+  if (posts.length === 0) {
+    return <p>No posts found.</p>;
+  }
 
   return (
     <>
-      {posts.length === 0 ? (
-        <p className="text-center text-gray-500">Loading posts...</p>
-      ) : (
-        posts.map((post) => <FeedPost key={post.id} post={post} />)
-      )}
+      {posts.map((post) => (
+        <FeedPost key={post.id} post={post} />
+      ))}
     </>
   );
 }

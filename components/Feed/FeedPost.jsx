@@ -19,7 +19,7 @@ export default function FeedPost({ post }) {
         <div className={feed.container}>
           <div className={feed["post-details"]}>
             <div className={feed.details}>
-              <Link href="">
+              <Link href={`/${post.subreddit[0]?.topic}`}>
                 <span className={feed.uid}>
                   r/{post.subreddit[0]?.topic} &#8226;
                 </span>
