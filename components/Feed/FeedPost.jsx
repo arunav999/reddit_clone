@@ -19,10 +19,18 @@ export default function FeedPost({ post }) {
         <div className={feed.container}>
           <div className={feed["post-details"]}>
             <div className={feed.details}>
-              <span className={feed.uid}>
-                r/{post.subreddit[0]?.topic} &#8226; Posted by u/{post.username}{" "}
-                &#8226;
-              </span>
+              <Link href="">
+                <span className={feed.uid}>
+                  r/{post.subreddit[0]?.topic} &#8226;
+                </span>
+              </Link>
+
+              <Link href="">
+                <span>
+                  Posted by u/
+                  {post.username} &#8226;
+                </span>
+              </Link>
 
               <span className={feed["time-ago"]}>
                 <TimeAgo date={post.created_at} />
@@ -44,17 +52,13 @@ export default function FeedPost({ post }) {
 
           {post.image !== null && post.image !== "" ? (
             <div className={feed.image}>
-              <img src={post.image} alt={post.title} />
+              <img src={post.image} alt={post.title} className="" />
             </div>
           ) : (
             <div className={feed.body}>
               <p>{post.body}</p>
             </div>
           )}
-
-          {/* <div className={feed.body}>
-            <p>{post.body}</p>
-          </div> */}
 
           <div className={feed.cta}>
             <div className={feed["vote-btns"]}>
@@ -76,7 +80,9 @@ export default function FeedPost({ post }) {
                 <span className={feed["comment-icon"]}>
                   <ChatBubbleOvalLeftIcon className="h-9 w-9" />
                 </span>
-                <span className={feed["comment-count"]}>15</span>
+                <span className={feed["comment-count"]}>
+                  {post.comments?.length}
+                </span>
               </Link>
             </div>
 

@@ -65,7 +65,7 @@
 .image img {
   /* max-height: fit-content;
   max-width: fit-content; */
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ----- CTA ----- */

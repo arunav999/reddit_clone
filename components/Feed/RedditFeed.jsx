@@ -33,6 +33,8 @@ export default function RedditFeed() {
     fetchPosts();
   }, []);
 
+  // console.log(posts);
+
   return (
     <>
       {posts.length === 0 ? (
