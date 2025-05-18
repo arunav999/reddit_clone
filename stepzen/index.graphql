@@ -20,6 +20,16 @@ type Query {
   getPostList: [Post]
     @dbquery(type: "postgresql", table: "post", configuration: "postgresql")
 
+  getPostListByPostId(post_id: ID!): Post
+    @dbquery(
+      type: "postgresql"
+      configuration: "postgresql"
+      query: """
+      select * from "post"
+      where "post"."id" = $1
+      """
+    )
+
   getPostListByTopic(topic: String!): [Post]
     @dbquery(
       type: "postgresql"

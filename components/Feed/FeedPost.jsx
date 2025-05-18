@@ -45,7 +45,7 @@ export default function FeedPost({ post }) {
           </div>
 
           <div className={feed["title-head"]}>
-            <Link href="" className={feed["title-link"]}>
+            <Link href={`/dPostPage/${post.id}`} className={feed["title-link"]}>
               <p className={feed.title}>{post.title}</p>
             </Link>
           </div>

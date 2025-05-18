@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -100,6 +100,9 @@ export default function Header() {
                   {/* <span>Online-green dot</span> */}
                 </button>
               </div>
+              <button className={classes.login} onClick={() => signOut()}>
+                Log Out
+              </button>
             </>
           )}
         </div>
