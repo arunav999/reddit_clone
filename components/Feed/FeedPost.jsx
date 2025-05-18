@@ -1,6 +1,9 @@
+"use client";
+
 import TimeAgo from "react-timeago";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import feed from "./FeedPost.module.css";
 
@@ -13,6 +16,9 @@ import {
 } from "@heroicons/react/24/outline";
 
 export default function FeedPost({ post }) {
+  const pathName = usePathname();
+  const isSinglePost = pathName === `/dPostPage/${post.id}`;
+
   return (
     <>
       <article className={feed.article}>
@@ -49,6 +55,12 @@ export default function FeedPost({ post }) {
               <p className={feed.title}>{post.title}</p>
             </Link>
           </div>
+
+          {isSinglePost && (
+            <div className={feed.body}>
+              <p>{post.body}</p>
+            </div>
+          )}
 
           {post.image !== null && post.image !== "" ? (
             <div className={feed.image}>
